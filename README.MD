@@ -1,4 +1,4 @@
-# woo-wrapper
+# woo-wrapper (empty shell)
 
 ## Installation
 
