@@ -1,4 +1,4 @@
-# woo-wrapper
+# woo-wrapper (In development)
 
 ## Installation
 
@@ -8,50 +8,100 @@ To install this library, run:
 $ npm install woo-wrapper --save (not yet published)
 ```
 
-## Consuming your library
+## Using woo-wrapper
 
-Once you have published your library to npm, you can import your library in any Angular application by running:
+Import woo-wrapper in any Angular application by running:
 
 ```bash
-$ npm install woo-wrapper
+$ npm install woo-wrapper (not yet published)
 ```
 
 and then from your Angular `AppModule`:
 
 ```typescript
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-
-// Import your library
-import { SampleModule, SampleService } from 'woo-wrapper';
+...
+// Import woo-wrapper
+import { WooApiModule, WooCommerceService } from 'woo-wrapper';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [...],
   imports: [
-    BrowserModule,
-
-    // Specify your library as an import
-    LibraryModule
+    ...
+    // Specify woo-wrapper as an import
+    WooApiModule
   ],
   // Add the service as a provider
-  providers: [SampleService],
-  bootstrap: [AppComponent]
+  providers: [WooCommerceService]
 })
 export class AppModule { }
 ```
 
-Once your library is imported, you can use its components, directives and pipes in your Angular application:
+Once woo-wrapper is imported, you can use its components, directives and pipes in your Angular application:
 
 ```xml
-<!-- You can now use your library component in app.component.html -->
+<!-- You can now use woo-wrapper component in app.component.html -->
 <h1>
   {{title}}
 </h1>
 <sampleComponent></sampleComponent>
+```
+
+## Methods
+
+All methods return `promises`
+
+### `Fetch(ItemType: string)`
+
+**Example**
+
+```typescript
+this.woo.Fetch('products')
+  .then(products => console.log(products));
+```
+
+### `AddToCart(product: any)`
+
+**Example**
+
+```typescript
+this.woo.AddToCart(this.product)
+  .then(response => console.log(response));
+```
+
+### `CreateCustomer(user: Object)`
+
+**Example**
+
+```typescript
+this.woo.CreateCustomer(this.user)
+  .then(response => console.log(response));
+```
+
+### `UpdateCustomer(user: Object)`
+
+**Example**
+
+```typescript
+this.woo.UpdateCustomer(this.newData)
+  .then(response => console.log(response));
+```
+
+### `CreateOrder(items: Array<any>)`
+
+**Example**
+
+```typescript
+this.woo.CreateOrder(this.products)
+  .then(response => console.log(response));
+```
+
+### `UpdateOrder(orderId: Number, newData: Object)`
+
+**Example**
+
+```typescript
+this.woo.UpdateOrder(this.orderId, this.newData)
+  .then(response => console.log(response));
 ```
 
 ## Development

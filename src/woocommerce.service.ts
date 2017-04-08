@@ -19,5 +19,15 @@ export class WooCommerceService {
         .catch((error:Error) => reject(error));
         
     });
-	} 
+	}
+
+  AddToCart(product:any): void {};
+
+  CreateCustomer(user:any): void {};
+
+  UpdateCustomer(user:any): void {};
+
+  CreateOrder(items:Array<any>): void {};
+
+  UpdateOrder(orderId:Number): void {};
 }
