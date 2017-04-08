@@ -1,5 +1,7 @@
 # woo-wrapper (In development)
 
+[![Build Status](https://travis-ci.org/michaeldoye/woo-wrapper.svg?branch=master)](https://travis-ci.org/michaeldoye/woo-wrapper)
+
 ## Installation
 
 To install this library, run:
