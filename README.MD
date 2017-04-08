@@ -1,11 +1,11 @@
-# woo-wrapper (empty shell)
+# woo-wrapper
 
 ## Installation
 
 To install this library, run:
 
 ```bash
-$ npm install woo-wrapper --save
+$ npm install woo-wrapper --save (not yet published)
 ```
 
 ## Consuming your library
@@ -25,7 +25,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 // Import your library
-import { SampleModule } from 'woo-wrapper';
+import { SampleModule, SampleService } from 'woo-wrapper';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { SampleModule } from 'woo-wrapper';
     // Specify your library as an import
     LibraryModule
   ],
-  providers: [],
+  // Add the service as a provider
+  providers: [SampleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

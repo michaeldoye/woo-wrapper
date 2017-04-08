@@ -3,7 +3,7 @@ import * as WooCommerceAPI from 'woocommerce-api';
 
 
 @Injectable()
-export class SampleService {
+export class WooCommerceService {
 
   woo:any;
 

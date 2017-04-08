@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { SampleComponent } from './src/sample.component';
 import { SampleDirective } from './src/sample.directive';
 import { SamplePipe } from './src/sample.pipe';
-import { SampleService } from './src/sample.service';
+import { WooCommerceService } from './src/woocommerce.service';
 
 export * from './src/sample.component';
 export * from './src/sample.directive';
 export * from './src/sample.pipe';
-export * from './src/sample.service';
+export * from './src/woocommerce.service';
 
 
 @NgModule({
@@ -26,11 +26,11 @@ export * from './src/sample.service';
     SamplePipe
   ]
 })
-export class SampleModule {
+export class WooApiModule {
   static forRoot(config: Object): ModuleWithProviders {
     return {
-      ngModule: SampleModule,
-      providers: [SampleService, {provide: 'config', useValue: config}]
+      ngModule: WooApiModule,
+      providers: [WooCommerceService, {provide: 'config', useValue: config}]
     };
   }
 }
