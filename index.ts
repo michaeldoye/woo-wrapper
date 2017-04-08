@@ -10,6 +10,7 @@ export * from './src/sample.directive';
 export * from './src/sample.pipe';
 export * from './src/sample.service';
 
+
 @NgModule({
   imports: [
     CommonModule
@@ -26,10 +27,10 @@ export * from './src/sample.service';
   ]
 })
 export class SampleModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(config: Object): ModuleWithProviders {
     return {
       ngModule: SampleModule,
-      providers: [SampleService]
+      providers: [SampleService, {provide: 'config', useValue: config}]
     };
   }
 }

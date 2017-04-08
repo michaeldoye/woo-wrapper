@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import * as WooCommerceAPI from 'woocommerce-api';
 
 
@@ -7,19 +7,17 @@ export class SampleService {
 
   woo:any;
 
-  constructor() {
-
-    this.woo = WooCommerceAPI({
-      url: 'http://woodemo.webseodev4.co.za',
-      consumerKey: 'ck_e23da851d1b0f5917403e823565ee2f7099bd778',
-      consumerSecret: 'cs_116af19a9badeb60208692275597030e01acec5a',
-      wpAPI: true,
-      version: 'wc/v1'
-    });
-    
+  constructor(@Inject('config') private config:any) {
+    this.woo = WooCommerceAPI(config);
   }
 
 	Fetch(itemType:string): Promise<any> {
-		return this.woo.getAsync(itemType);
+    return new Promise((resolve, reject) => {
+
+      this.woo.getAsync(itemType)
+        .then((data:any) => resolve(JSON.parse(data.toJSON().body)))
+        .catch((error:Error) => reject(error));
+        
+    });
 	} 
 }
