@@ -122,4 +122,4 @@ $ npm run lint
 
 ## License
 
-MIT © [Michael Doye](mailto:michaeldoye@gmail.com)
+MIT © [Michael Doye](mailto:michaeldoye[@]gmail.com)
