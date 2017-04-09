@@ -1,6 +1,7 @@
 # woo-wrapper (In development)
 Please note this library is not yet pubished or active, it is currently being developed. Add an issue if you have an idea or feature request.
 
+[![GitHub version](https://badge.fury.io/gh/michaeldoye%2Fwoo-wrapper.svg)](https://badge.fury.io/gh/michaeldoye%2Fwoo-wrapper)
 [![Build Status](https://travis-ci.org/michaeldoye/woo-wrapper.svg?branch=master)](https://travis-ci.org/michaeldoye/woo-wrapper)
 
 ## Installation
