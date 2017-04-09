@@ -16,7 +16,7 @@ To install this library, run:
 $ npm install woo-wrapper --save (not yet published)
 ```
 
-## Using woo-wrapper
+## Usage
 
 Import woo-wrapper in any Angular application by running:
 
