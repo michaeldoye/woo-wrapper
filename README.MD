@@ -58,7 +58,7 @@ Once woo-wrapper is imported, you can use the `WooApiService`:
 ```typescript
 import { Component, OnInit } from '@angular/core';
 // Import the service
-import { WooApiService } from 'woo-test';
+import { WooApiService } from 'woo-wrapper';
 
 
 @Component({...})
