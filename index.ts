@@ -1,9 +1,10 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { SampleComponent } from './src/sample.component';
 import { SampleDirective } from './src/sample.directive';
 import { SamplePipe } from './src/sample.pipe';
-import { WooCommerceService } from './src/woocommerce.service';
+import { WooApiService } from './src/woocommerce.service';
 
 export * from './src/sample.component';
 export * from './src/sample.directive';
@@ -30,7 +31,7 @@ export class WooApiModule {
   static forRoot(config: Object): ModuleWithProviders {
     return {
       ngModule: WooApiModule,
-      providers: [WooCommerceService, {provide: 'config', useValue: config}]
+      providers: [WooApiService, {provide: 'config', useValue: config}]
     };
   }
 }

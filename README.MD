@@ -1,4 +1,5 @@
 # woo-wrapper (In development)
+Please note this library is not yet pubished or active, it is currently being developed. Add an issue if you have an idea or feature request.
 
 [![Build Status](https://travis-ci.org/michaeldoye/woo-wrapper.svg?branch=master)](https://travis-ci.org/michaeldoye/woo-wrapper)
 
@@ -23,86 +24,109 @@ and then from your Angular `AppModule`:
 ```typescript
 ...
 // Import woo-wrapper
-import { WooApiModule, WooCommerceService } from 'woo-wrapper';
+import { WooApiModule, WooApiService } from 'woo-wrapper';
+
+// Add your WooCommerce Credentials
+const WooCommerceConfig = {
+  url: 'your_site_url',
+  consumerKey: 'ck_XXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+  consumerSecret: 'cs_XXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+  wpAPI: true,
+  version: 'wc/v1'
+};
 
 @NgModule({
   declarations: [...],
   imports: [
     ...
     // Specify woo-wrapper as an import
-    WooApiModule
+    WooApiModule.forRoot(WooCommerceConfig)
   ],
   // Add the service as a provider
-  providers: [WooCommerceService]
+  providers: [WooApiService]
 })
 export class AppModule { }
 ```
 
-Once woo-wrapper is imported, you can use its components, directives and pipes in your Angular application:
+Once woo-wrapper is imported, you can use the `WooApiService`:
 
-```xml
-<!-- You can now use woo-wrapper component in app.component.html -->
-<h1>
-  {{title}}
-</h1>
-<sampleComponent></sampleComponent>
+```typescript
+import { Component, OnInit } from '@angular/core';
+//Import the service
+import { WooApiService } from 'woo-test';
+
+
+@Component({...})
+export class HomePage implements OnInit { 
+
+  products: any;
+  // Inject the service
+  constructor(private woo: WooApiService) { }
+
+  ngOnInit(): void {
+    this.woo.fetchItems('products')
+      .then(products => console.log(products));
+  }
+
+}
+
 ```
 
 ## Methods
 
 All methods return `promises`
 
-### `Fetch(ItemType: string)`
+### `fetchItems(itemType: string)`
 
 **Example**
 
 ```typescript
-this.woo.Fetch('products')
+this.woo.fetchItems('products')
   .then(products => console.log(products));
 ```
 
-### `AddToCart(product: any)`
+### `addToCart(product: any)`
 
 **Example**
 
 ```typescript
-this.woo.AddToCart(this.product)
+this.woo.addToCart(this.product)
   .then(response => console.log(response));
 ```
 
-### `CreateCustomer(user: Object)`
+### `areateCustomer(user: Object)`
 
 **Example**
 
 ```typescript
-this.woo.CreateCustomer(this.user)
+this.woo.createCustomer(this.user)
   .then(response => console.log(response));
 ```
 
-### `UpdateCustomer(user: Object)`
+### `updateCustomer(user: Object)`
 
 **Example**
 
 ```typescript
-this.woo.UpdateCustomer(this.newData)
+this.woo.updateCustomer(this.newData)
   .then(response => console.log(response));
 ```
 
-### `CreateOrder(items: Array<any>)`
+### `createOrder(items: Array<any>)`
 
 **Example**
 
 ```typescript
-this.woo.CreateOrder(this.products)
+this.woo.createOrder(this.products)
   .then(response => console.log(response));
 ```
 
-### `UpdateOrder(orderId: Number, newData: Object)`
+### `updateOrder(orderId: Number, newData: Object)`
 
 **Example**
 
 ```typescript
-this.woo.UpdateOrder(this.orderId, this.newData)
+this.woo.updateOrder(this.orderId, this.newData)
   .then(response => console.log(response));
 ```
 
