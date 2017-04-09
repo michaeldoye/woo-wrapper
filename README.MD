@@ -39,7 +39,7 @@ const WooCommerceConfig = {
   declarations: [...],
   imports: [
     ...
-    // Specify woo-wrapper as an import
+    // Specify woo-wrapper as an import and pass in your config
     WooApiModule.forRoot(WooCommerceConfig)
   ],
   // Add the service as a provider
@@ -52,7 +52,7 @@ Once woo-wrapper is imported, you can use the `WooApiService`:
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-//Import the service
+// Import the service
 import { WooApiService } from 'woo-test';
 
 
@@ -64,6 +64,7 @@ export class HomePage implements OnInit {
   constructor(private woo: WooApiService) { }
 
   ngOnInit(): void {
+    // Fetch all products
     this.woo.fetchItems('products')
       .then(products => console.log(products));
   }
@@ -94,7 +95,7 @@ this.woo.addToCart(this.product)
   .then(response => console.log(response));
 ```
 
-### `areateCustomer(user: Object)`
+### `createCustomer(user: Object)`
 
 **Example**
 
