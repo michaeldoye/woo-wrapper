@@ -1,4 +1,6 @@
 # woo-wrapper (In development)
+Soon-to-be Angular2+ wrapper for the WooCommerce API
+
 Please note this library is not yet pubished or active, it is currently being developed. Add an issue if you have an idea or feature request.
 
 [![GitHub version](https://badge.fury.io/gh/michaeldoye%2Fwoo-wrapper.svg)](https://badge.fury.io/gh/michaeldoye%2Fwoo-wrapper)
