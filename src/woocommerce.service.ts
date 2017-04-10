@@ -13,10 +13,10 @@ export class WooApiService implements OnInit {
     @Inject('config') 
     private config: any, 
     private ls: CoolLocalStorage
-  ) { }
+  ) { this.woo = WooCommerceAPI(config) }
 
   ngOnInit(): void {
-    this.woo = WooCommerceAPI(this.config);
+    
   }
 
 	fetchItems(itemType:string): Promise<any> {
@@ -28,13 +28,19 @@ export class WooApiService implements OnInit {
 	}
 
   addToCart(product:any): void {
-    this.ls.setObject('cart', product);
+    let cartArray:any = this.ls.getObject('cart') || [];
+    cartArray.push(product);
+    this.ls.setObject('cart', cartArray);
   };
 
   getCart(): Promise<any> {
     return new Promise((resolve, reject) => {
       resolve(this.ls.getObject('cart'));
     });
+  }
+
+  clearCart(): void {
+    this.ls.removeItem('cart');
   }
 
   createCustomer(user:any): void {};
