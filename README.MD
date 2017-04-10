@@ -6,6 +6,7 @@ Please note this library is not yet pubished or active, it is currently being de
 [![GitHub version](https://badge.fury.io/gh/michaeldoye%2Fwoo-wrapper.svg)](https://badge.fury.io/gh/michaeldoye%2Fwoo-wrapper)
 [![dependencies Status](https://david-dm.org/michaeldoye/woo-wrapper/status.svg)](https://david-dm.org/michaeldoye/woo-wrapper)
 [![GitHub issues](https://img.shields.io/github/issues/michaeldoye/woo-wrapper.svg)](https://github.com/michaeldoye/woo-wrapper/issues)
+[![Discord Chat](https://img.shields.io/badge/Discord-Chat-blue.svg)](https://discord.gg/xyUdZKh)
 [![Build Status](https://travis-ci.org/michaeldoye/woo-wrapper.svg?branch=master)](https://travis-ci.org/michaeldoye/woo-wrapper)
 
 ## Installation
