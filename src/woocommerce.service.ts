@@ -1,14 +1,22 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, OnInit } from '@angular/core';
 import * as WooCommerceAPI from 'woocommerce-api';
+
+import { CoolLocalStorage } from 'angular2-cool-storage';
 
 
 @Injectable()
-export class WooApiService {
+export class WooApiService implements OnInit {
 
   woo:any;
 
-  constructor(@Inject('config') private config:any) {
-    this.woo = WooCommerceAPI(config);
+  constructor(
+    @Inject('config') 
+    private config: any, 
+    private ls: CoolLocalStorage
+  ) { }
+
+  ngOnInit(): void {
+    this.woo = WooCommerceAPI(this.config);
   }
 
 	fetchItems(itemType:string): Promise<any> {
@@ -19,7 +27,15 @@ export class WooApiService {
     });
 	}
 
-  addToCart(product:any): void {};
+  addToCart(product:any): void {
+    this.ls.setObject('cart', product);
+  };
+
+  getCart(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      resolve(this.ls.getObject('cart'));
+    });
+  }
 
   createCustomer(user:any): void {};
 

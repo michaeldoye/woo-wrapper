@@ -6,15 +6,20 @@ import { SampleDirective } from './src/sample.directive';
 import { SamplePipe } from './src/sample.pipe';
 import { WooApiService } from './src/woocommerce.service';
 
+import { CoolStorageModule } from 'angular2-cool-storage';
+
+
 export * from './src/sample.component';
 export * from './src/sample.directive';
 export * from './src/sample.pipe';
 export * from './src/woocommerce.service';
 
 
+
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    CoolStorageModule.forRoot()
   ],
   declarations: [
     SampleComponent,
