@@ -7,17 +7,19 @@ import { CoolLocalStorage } from 'angular2-cool-storage';
 @Injectable()
 export class WooApiService implements OnInit {
 
-  woo:any;
+  woo: any;
+  cartArray: any;
 
   constructor(
     @Inject('config') 
     private config: any, 
     private ls: CoolLocalStorage
-  ) { this.woo = WooCommerceAPI(config) }
+  ) { 
+      this.woo = WooCommerceAPI(config);
+      this.cartArray = this.ls.getObject('cart') || [];
+   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
 	fetchItems(itemType:string): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -27,10 +29,33 @@ export class WooApiService implements OnInit {
     });
 	}
 
-  addToCart(product:any): void {
-    let cartArray:any = this.ls.getObject('cart') || [];
-    cartArray.push(product);
-    this.ls.setObject('cart', cartArray);
+  addToCart(product:any, qty?:Number): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      let toAdd: boolean = true;
+
+      let cartItem: Object = {
+        quantity: qty ? qty : 1,
+        product: product
+      }
+
+      // check for duplicate products
+      if (this.cartArray.length >= 1) {
+        this.cartArray.forEach((element:any) => {
+          toAdd = element.product.id === product.id ? false : true;
+        });
+      }
+
+      if (toAdd) {
+        this.cartArray.push(cartItem);
+        this.ls.setObject('cart', this.cartArray);
+        resolve({response: `${product.name} added to cart`});
+      } 
+      else {
+        reject({response: `${product.name}  already in Cart`});
+      }
+
+    });
   };
 
   getCart(): Promise<any> {
@@ -41,6 +66,7 @@ export class WooApiService implements OnInit {
 
   clearCart(): void {
     this.ls.removeItem('cart');
+    this.cartArray = [];
   }
 
   createCustomer(user:any): void {};

@@ -83,7 +83,9 @@ export class HomePage implements OnInit {
 
 All methods return `promises`
 
-### `fetchItems(itemType: string)`
+### `fetchItems(itemType)`
+
+- accepts: `string` (_required_) - the type of WooCommerce item you want to fetch (_products, orders, customers, categories_). Accepts query parameters, see the [WooCommerce Api docs](https://woocommerce.github.io/woocommerce-rest-api-docs) for a full list of query parameters.
 
 **Example**
 
@@ -92,13 +94,17 @@ this.woo.fetchItems('products')
   .then(products => console.log(products));
 ```
 
-### `addToCart(product: any)`
+### `addToCart(product, quantity)`
+
+- accepts: `object` (_required_) - your product, in object format.
+- accepts: `number` (_optional_) - the quantity of the product. (_default: `1`_)
 
 **Example**
 
 ```typescript
 this.woo.addToCart(this.product)
-  .then(response => console.log(response));
+  .then(response => console.log(response))
+  .catch(error => /* Error responses sent here - eg: 'Product already in cart' */);
 ```
 
 ### `createCustomer(user: Object)`
