@@ -1,6 +1,5 @@
 import { Injectable, Inject, OnInit } from '@angular/core';
 import * as WooCommerceAPI from 'woocommerce-api';
-
 import { CoolLocalStorage } from 'angular2-cool-storage';
 
 
@@ -21,13 +20,13 @@ export class WooApiService implements OnInit {
 
   ngOnInit(): void {}
 
-	fetchItems(itemType:string): Promise<any> {
+  fetchItems(itemType:string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.woo.getAsync(itemType)
         .then((data:any) => resolve(JSON.parse(data.toJSON().body)))
         .catch((error:Error) => reject(error));
     });
-	}
+  }
 
   addToCart(product:any, qty?:Number): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -39,7 +38,6 @@ export class WooApiService implements OnInit {
         product: product
       }
 
-      // check for duplicate products
       if (this.cartArray.length >= 1) {
         this.cartArray.forEach((element:any) => {
           if (element.product.id === product.id ) {

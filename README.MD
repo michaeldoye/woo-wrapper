@@ -102,7 +102,7 @@ this.woo.fetchItems('products')
 **Example**
 
 ```typescript
-this.woo.addToCart(this.product)
+this.woo.addToCart(this.product, this.qty)
   .then(response => console.log(response))
   .catch(error => /* Error responses sent here - eg: 'Product already in cart' */);
 ```
