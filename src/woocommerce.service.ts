@@ -32,7 +32,7 @@ export class WooApiService implements OnInit {
   addToCart(product:any, qty?:Number): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      let toAdd: boolean = true;
+      let isFound: boolean = false;
 
       let cartItem: Object = {
         quantity: qty ? qty : 1,
@@ -42,18 +42,24 @@ export class WooApiService implements OnInit {
       // check for duplicate products
       if (this.cartArray.length >= 1) {
         this.cartArray.forEach((element:any) => {
-          toAdd = element.product.id === product.id ? false : true;
+          if (element.product.id === product.id ) {
+            isFound = true;
+            reject({error: `${product.name} already in Cart`});
+            return;
+          }
         });
       }
 
-      if (toAdd) {
-        this.cartArray.push(cartItem);
-        this.ls.setObject('cart', this.cartArray);
-        resolve({response: `${product.name} added to cart`});
-      } 
-      else {
-        reject({response: `${product.name}  already in Cart`});
-      }
+      setTimeout(() => {
+        if (!isFound) {
+          this.cartArray.push(cartItem);
+          this.ls.setObject('cart', this.cartArray);
+          resolve({success: `${product.name} added to cart`});
+        } 
+        else {
+          reject({error: `There was an error, please try again`});
+        }
+      }, 300);
 
     });
   };
