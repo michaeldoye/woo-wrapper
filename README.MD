@@ -85,7 +85,7 @@ All methods return `promises`
 
 ### `fetchItems(itemType)`
 
-- accepts: `string` (_required_) - the type of WooCommerce item you want to fetch (_products, orders, customers, categories_). Accepts query parameters, see the [WooCommerce Api docs](https://woocommerce.github.io/woocommerce-rest-api-docs) for a full list of query parameters.
+- Accepts: `string` (_required_) - the type of WooCommerce item you want to fetch (_products, orders, customers, categories_). Accepts query parameters, see the [WooCommerce Api docs](https://woocommerce.github.io/woocommerce-rest-api-docs) for a full list of query parameters.
 
 **Example**
 
@@ -94,15 +94,16 @@ this.woo.fetchItems('products')
   .then(products => console.log(products));
 ```
 
-### `addToCart(product, quantity)`
+### `addToCart(product, quantity, productMeta)`
 
-- accepts: `object` (_required_) - your product, in object format.
-- accepts: `number` (_optional_) - the quantity of the product. (_default: `1`_)
+- Accepts: `object` (_required_) - your product, in object format.
+- Accepts: `number` (_optional_) - the quantity of the product. (_default: `1`_)
+- Accepts: `object` (_optional_) - the selected product attributes for variable products (TODO: add format)
 
 **Example**
 
 ```typescript
-this.woo.addToCart(this.product, this.qty)
+this.woo.addToCart(this.product, this.qty, this.meta)
   .then(response => console.log(response))
   .catch(error => /* Error responses sent here - eg: 'Product already in cart' */);
 ```

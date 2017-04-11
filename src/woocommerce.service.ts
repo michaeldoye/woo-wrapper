@@ -2,6 +2,8 @@ import { Injectable, Inject, OnInit } from '@angular/core';
 import * as WooCommerceAPI from 'woocommerce-api';
 import { CoolLocalStorage } from 'angular2-cool-storage';
 
+import { CartItem } from "./interfaces";
+
 
 @Injectable()
 export class WooApiService implements OnInit {
@@ -28,14 +30,16 @@ export class WooApiService implements OnInit {
     });
   }
 
-  addToCart(product:any, qty?:Number): Promise<any> {
+  addToCart(product:any, qty?:number, productMeta?:any): Promise<any> {
     return new Promise((resolve, reject) => {
 
       let isFound: boolean = false;
 
-      let cartItem: Object = {
-        quantity: qty ? qty : 1,
-        product: product
+      let cartItem: CartItem = {
+        quantity: qty || 1,
+        product: product,
+        lineTotal: Number(product.price) * (qty || 1),
+        ItemMeta: productMeta || {}
       }
 
       if (this.cartArray.length >= 1) {
@@ -51,8 +55,12 @@ export class WooApiService implements OnInit {
       setTimeout(() => {
         if (!isFound) {
           this.cartArray.push(cartItem);
-          this.ls.setObject('cart', this.cartArray);
-          resolve({success: `${product.name} added to cart`});
+          try {
+            this.ls.setObject('cart', this.cartArray);
+            resolve({success: `${product.name} added to cart`});            
+          } catch (error) {
+            reject({error: error});
+          }
         } 
         else {
           reject({error: `There was an error, please try again`});
@@ -65,7 +73,11 @@ export class WooApiService implements OnInit {
   getCart(): Promise<any> {
     return new Promise((resolve, reject) => {
       if (this.cartArray.length) {
-        resolve(this.ls.getObject('cart'));
+        try {
+          resolve(this.ls.getObject('cart'));
+        } catch (error) {
+          reject({error: error});
+        }
       }
       else {
         reject({error: 'Cart is empty'})
@@ -75,11 +87,17 @@ export class WooApiService implements OnInit {
 
   clearCart(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.ls.removeItem('cart');
       this.cartArray = [];
-      resolve({response: 'Cart Empty'});
+      try {
+        this.ls.removeItem('cart');
+      } catch (error) {
+        reject({error: error});
+      }
+      resolve({response: 'Cart Cleared'});
     });
   }
+
+  getCustomer(customerId:Number): void {}
 
   createCustomer(user:any): void {};
 

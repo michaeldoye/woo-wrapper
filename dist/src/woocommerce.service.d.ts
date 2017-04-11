@@ -8,9 +8,10 @@ export declare class WooApiService implements OnInit {
     constructor(config: any, ls: CoolLocalStorage);
     ngOnInit(): void;
     fetchItems(itemType: string): Promise<any>;
-    addToCart(product: any, qty?: Number): Promise<any>;
+    addToCart(product: any, qty?: number, productMeta?: any): Promise<any>;
     getCart(): Promise<any>;
-    clearCart(): void;
+    clearCart(): Promise<any>;
+    getCustomer(customerId: Number): void;
     createCustomer(user: any): void;
     updateCustomer(user: any): void;
     createOrder(items: Array<any>): void;
