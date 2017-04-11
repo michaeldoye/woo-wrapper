@@ -107,6 +107,30 @@ this.woo.addToCart(this.product, this.qty)
   .catch(error => /* Error responses sent here - eg: 'Product already in cart' */);
 ```
 
+### `getCart()`
+
+- Gets current cart contents
+- Returns array of cart items _(`[{...},{...},{...}]`)_
+
+**Example**
+
+```typescript
+this.woo.getCart()
+  .then(response => console.log(response))
+  .catch(error => /* Error responses sent here - eg: 'Cart is empty' */);
+```
+
+### `clearCart()`
+
+- Clears the cart Array 
+
+**Example**
+
+```typescript
+this.woo.clearCart()
+  .then(response => console.log(response));
+```
+
 ### `createCustomer(user: Object)`
 
 **Example**

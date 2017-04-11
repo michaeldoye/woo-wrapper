@@ -64,13 +64,21 @@ export class WooApiService implements OnInit {
 
   getCart(): Promise<any> {
     return new Promise((resolve, reject) => {
-      resolve(this.ls.getObject('cart'));
+      if (this.cartArray.length) {
+        resolve(this.ls.getObject('cart'));
+      }
+      else {
+        reject({error: 'Cart is empty'})
+      }
     });
   }
 
-  clearCart(): void {
-    this.ls.removeItem('cart');
-    this.cartArray = [];
+  clearCart(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.ls.removeItem('cart');
+      this.cartArray = [];
+      resolve({response: 'Cart Empty'});
+    });
   }
 
   createCustomer(user:any): void {};
