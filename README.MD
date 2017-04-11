@@ -94,6 +94,8 @@ this.woo.fetchItems('products')
   .then(products => console.log(products));
 ```
 
+<hr>
+
 ### `addToCart(product, quantity, productMeta)`
 
 - Accepts: `object` (_required_) - your product, in object format.
@@ -108,6 +110,8 @@ this.woo.addToCart(this.product, this.qty, this.meta)
   .catch(error => /* Error responses sent here - eg: 'Product already in cart' */);
 ```
 
+<hr>
+
 ### `getCart()`
 
 - Gets current cart contents
@@ -121,6 +125,8 @@ this.woo.getCart()
   .catch(error => /* Error responses sent here - eg: 'Cart is empty' */);
 ```
 
+<hr>
+
 ### `clearCart()`
 
 - Clears the cart Array 
@@ -132,6 +138,8 @@ this.woo.clearCart()
   .then(response => console.log(response));
 ```
 
+<hr>
+
 ### `createCustomer(user: Object)`
 
 **Example**
@@ -140,6 +148,8 @@ this.woo.clearCart()
 this.woo.createCustomer(this.user)
   .then(response => console.log(response));
 ```
+
+<hr>
 
 ### `updateCustomer(user: Object)`
 
@@ -150,6 +160,8 @@ this.woo.updateCustomer(this.newData)
   .then(response => console.log(response));
 ```
 
+<hr>
+
 ### `createOrder(items: Array<any>)`
 
 **Example**
@@ -159,6 +171,8 @@ this.woo.createOrder(this.products)
   .then(response => console.log(response));
 ```
 
+<hr>
+
 ### `updateOrder(orderId: Number, newData: Object)`
 
 **Example**
@@ -167,6 +181,8 @@ this.woo.createOrder(this.products)
 this.woo.updateOrder(this.orderId, this.newData)
   .then(response => console.log(response));
 ```
+
+<hr>
 
 ## Development
 
