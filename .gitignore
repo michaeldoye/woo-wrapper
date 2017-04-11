@@ -27,3 +27,4 @@ Desktop.ini
 
 # Ngc generated files
 **/*.ngfactory.ts
+**/*.metadata.json

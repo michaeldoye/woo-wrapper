@@ -15,7 +15,6 @@ export * from './src/sample.pipe';
 export * from './src/woocommerce.service';
 
 
-
 @NgModule({
   imports: [
     CommonModule,
