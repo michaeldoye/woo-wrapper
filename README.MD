@@ -30,7 +30,7 @@ and then from your Angular `AppModule`:
 ```typescript
 ...
 // Import woo-wrapper
-import { WooApiModule, WooApiService } from 'woo-wrapper';
+import { WooApiModule, WooApiService, WooCartService } from 'woo-wrapper';
 
 // Add your WooCommerce Credentials
 const WooCommerceConfig = {
@@ -48,8 +48,9 @@ const WooCommerceConfig = {
     // Specify woo-wrapper as an import and pass in your config
     WooApiModule.forRoot(WooCommerceConfig)
   ],
-  // Add the service as a provider
-  providers: [WooApiService]
+  // Add the Api service to the provider
+  // Add the Cart service if you wish to use it
+  providers: [WooApiService, WooCartService]
 })
 export class AppModule { }
 ```
@@ -58,8 +59,8 @@ Once woo-wrapper is imported, you can use the `WooApiService`:
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-// Import the service
-import { WooApiService } from 'woo-wrapper';
+// Import the services
+import { WooApiService, WooCartService } from 'woo-wrapper';
 
 
 @Component({...})
@@ -67,12 +68,18 @@ export class HomePage implements OnInit {
 
   products: any;
   // Inject the service
-  constructor(private woo: WooApiService) { }
+  constructor(private woo: WooApiService, private cart: WooCartService) { }
 
   ngOnInit(): void {
     // Fetch all products
     this.woo.fetchItems('products')
       .then(products => console.log(products));
+  }
+
+  addToCart(product:any): void {
+    this.cart.add(product)
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
   }
 
 }
@@ -96,7 +103,7 @@ this.woo.fetchItems('products')
 
 <hr>
 
-### `addToCart(product, quantity, productMeta)`
+### `add(product, quantity, productMeta)`
 
 - Accepts: `object` (_required_) - your product, in object format.
 - Accepts: `number` (_optional_) - the quantity of the product. (_default: `1`_)
@@ -105,14 +112,14 @@ this.woo.fetchItems('products')
 **Example**
 
 ```typescript
-this.woo.addToCart(this.product, this.qty, this.meta)
+this.cart.add(this.product, this.qty, this.meta)
   .then(response => console.log(response))
   .catch(error => /* Error responses sent here - eg: 'Product already in cart' */);
 ```
 
 <hr>
 
-### `getCart()`
+### `get()`
 
 - Gets current cart contents
 - Returns array of cart items _(`[{...},{...},{...}]`)_
@@ -120,21 +127,21 @@ this.woo.addToCart(this.product, this.qty, this.meta)
 **Example**
 
 ```typescript
-this.woo.getCart()
+this.cart.get()
   .then(response => console.log(response))
   .catch(error => /* Error responses sent here - eg: 'Cart is empty' */);
 ```
 
 <hr>
 
-### `clearCart()`
+### `clear()`
 
 - Clears the cart Array 
 
 **Example**
 
 ```typescript
-this.woo.clearCart()
+this.cart.clear()
   .then(response => console.log(response));
 ```
 

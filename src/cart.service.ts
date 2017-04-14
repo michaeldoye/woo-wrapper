@@ -14,7 +14,7 @@ export class WooCartService {
     this.cartArray = this.ls.getObject('cart') || [];
   }
 
-  addToCart(product:any, qty?:number, productMeta?:any): Promise<any> {
+  add(product:any, qty?:number, productMeta?:any): Promise<any> {
     return new Promise((resolve, reject) => {
 
       let isFound: boolean = false;
@@ -54,7 +54,7 @@ export class WooCartService {
     });
   };
 
-  getCart(): Promise<any> {
+  get(): Promise<any> {
     return new Promise((resolve, reject) => {
       if (this.cartArray.length) {
         try {
@@ -69,7 +69,7 @@ export class WooCartService {
     });
   }
 
-  clearCart(): Promise<any> {
+  clear(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.cartArray = [];
       try {
