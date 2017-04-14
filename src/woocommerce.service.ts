@@ -1,26 +1,15 @@
-import { Injectable, Inject, OnInit } from '@angular/core';
-import * as WooCommerceAPI from 'woocommerce-api';
-import { CoolLocalStorage } from 'angular2-cool-storage';
-
-import { CartItem } from "./interfaces";
+import { Injectable, Inject } from '@angular/core';
+import * as WooCommerceAPI    from 'woocommerce-api';
 
 
 @Injectable()
-export class WooApiService implements OnInit {
+export class WooApiService {
 
   woo: any;
-  cartArray: any;
 
-  constructor(
-    @Inject('config') 
-    private config: any, 
-    private ls: CoolLocalStorage
-  ) { 
-      this.woo = WooCommerceAPI(config);
-      this.cartArray = this.ls.getObject('cart') || [];
-   }
-
-  ngOnInit(): void {}
+  constructor(@Inject('config') private config: any) { 
+    this.woo = WooCommerceAPI(config);
+  }
 
   fetchItems(itemType:string): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -28,76 +17,9 @@ export class WooApiService implements OnInit {
         .then((data:any) => resolve(JSON.parse(data.toJSON().body)))
         .catch((error:Error) => reject(error));
     });
-  }
-
-  addToCart(product:any, qty?:number, productMeta?:any): Promise<any> {
-    return new Promise((resolve, reject) => {
-
-      let isFound: boolean = false;
-
-      let cartItem: CartItem = {
-        quantity: qty || 1,
-        product: product,
-        lineTotal: Number(product.price) * (qty || 1),
-        ItemMeta: productMeta || {}
-      }
-
-      if (this.cartArray.length >= 1) {
-        this.cartArray.forEach((element:any) => {
-          if (element.product.id === product.id ) {
-            isFound = true;
-            reject({error: `${product.name} already in Cart`});
-            return;
-          }
-        });
-      }
-
-      setTimeout(() => {
-        if (!isFound) {
-          this.cartArray.push(cartItem);
-          try {
-            this.ls.setObject('cart', this.cartArray);
-            resolve({success: `${product.name} added to cart`});            
-          } catch (error) {
-            reject({error: error});
-          }
-        } 
-        else {
-          reject({error: `There was an error, please try again`});
-        }
-      }, 300);
-
-    });
   };
 
-  getCart(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      if (this.cartArray.length) {
-        try {
-          resolve(this.ls.getObject('cart'));
-        } catch (error) {
-          reject({error: error});
-        }
-      }
-      else {
-        reject({error: 'Cart is empty'})
-      }
-    });
-  }
-
-  clearCart(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.cartArray = [];
-      try {
-        this.ls.removeItem('cart');
-      } catch (error) {
-        reject({error: error});
-      }
-      resolve({response: 'Cart Cleared'});
-    });
-  }
-
-  getCustomer(customerId:Number): void {}
+  getCustomer(customerId:Number): void {};
 
   createCustomer(user:any): void {};
 
