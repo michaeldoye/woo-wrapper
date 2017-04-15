@@ -88,11 +88,11 @@ export class HomePage implements OnInit {
 
 ## Methods
 
-All methods return `promises`
 
 ### `fetchItems(itemType)`
 
 - Accepts: `string` (_required_) - the type of WooCommerce item you want to fetch (_products, orders, customers, categories_). Accepts query parameters, see the [WooCommerce Api docs](https://woocommerce.github.io/woocommerce-rest-api-docs) for a full list of query parameters.
+- Returns: `Promise`
 
 **Example**
 
@@ -108,6 +108,7 @@ this.woo.fetchItems('products')
 - Accepts: `object` (_required_) - your product, in object format.
 - Accepts: `number` (_optional_) - the quantity of the product. (_default: `1`_)
 - Accepts: `object` (_optional_) - the selected product attributes for variable products (TODO: add format)
+- Returns: `Promise`
 
 **Example**
 
@@ -123,26 +124,27 @@ this.cart.add(this.product, this.qty, this.meta)
 
 - Gets current cart contents
 - Returns array of cart items _(`[{...},{...},{...}]`)_
+- Returns: `Observable`
 
 **Example**
 
 ```typescript
 this.cart.get()
-  .then(response => console.log(response))
-  .catch(error => /* Error responses sent here - eg: 'Cart is empty' */);
+  .subscribe(data => console.log(data));
 ```
 
 <hr>
 
 ### `clear()`
 
-- Clears the cart Array 
+- Clears the cart Array
+- Returns: `Observable`
 
 **Example**
 
 ```typescript
 this.cart.clear()
-  .then(response => console.log(response));
+  .subscribe(data => console.log(data));
 ```
 
 <hr>

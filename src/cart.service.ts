@@ -1,7 +1,9 @@
 import { Injectable, Inject } from '@angular/core';
 import { CoolLocalStorage }   from 'angular2-cool-storage';
+import { Observable }         from "rxjs/Observable";
 
-import { CartItem } from "./interfaces";
+import { CartItem, CartItems } from "./interfaces";
+
 
 
 @Injectable()
@@ -23,7 +25,7 @@ export class WooCartService {
         quantity: qty || 1,
         product: product,
         lineTotal: Number(product.price) * (qty || 1),
-        ItemMeta: productMeta || {}
+        itemMeta: productMeta || null
       }
 
       if (this.cartArray.length >= 1) {
@@ -54,31 +56,24 @@ export class WooCartService {
     });
   };
 
-  get(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      if (this.cartArray.length) {
-        try {
-          resolve(this.ls.getObject('cart'));
-        } catch (error) {
-          reject({error: error});
-        }
-      }
-      else {
-        reject({error: 'Cart is empty'})
-      }
-    });
+  get(): Observable<CartItems> {
+    try {
+      return Observable.of(this.ls.getObject('cart'));
+    } 
+    catch (error) {
+      return Observable.of(error);
+    }
   }
 
-  clear(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.cartArray = [];
-      try {
-        this.ls.removeItem('cart');
-      } catch (error) {
-        reject({error: error});
-      }
-      resolve({response: 'Cart Cleared'});
-    });
+  clear(): Observable<Object> {
+    this.cartArray = [];
+    try {
+      this.ls.removeItem('cart');
+      return Observable.of({succss: 'Cart Emtpy'});
+    } 
+    catch (error) {
+      return Observable.of({error: error});
+    }
   }
 
 }

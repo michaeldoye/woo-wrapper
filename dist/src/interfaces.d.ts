@@ -4,3 +4,6 @@ export interface CartItem {
     lineTotal: Number;
     ItemMeta: Object;
 }
+export interface CartItems {
+    (index: Number): CartItem;
+}
