@@ -1,3 +1,6 @@
+import { WooApiService } from "./woocommerce.service";
 export declare class SampleComponent {
-    constructor();
+    private woo;
+    products: any;
+    constructor(woo: WooApiService);
 }
